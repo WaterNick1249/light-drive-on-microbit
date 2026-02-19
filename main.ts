@@ -10,10 +10,10 @@ input.onButtonPressed(Button.A, function () {
         music.play(music.tonePlayable(988, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
         Menu = 3
     } else if (Menu == 6) {
-        if (Brightness >= 250) {
+        if (Brightness >= 225) {
         	
         } else {
-            Brightness += 75
+            Brightness += 40
         }
     } else {
         if (Player_X == Car_X && Player_Y == Car_Y) {
@@ -49,10 +49,10 @@ input.onButtonPressed(Button.B, function () {
         basic.pause(100)
         Menu = 3
     } else if (Menu == 6) {
-        if (Brightness <= 25) {
+        if (Brightness <= 5) {
         	
         } else {
-            Brightness += -75
+            Brightness += -40
         }
     } else {
         if (Player_X == Car_X && Player_Y == Car_Y) {
@@ -77,23 +77,40 @@ let Menu = 0
 music.setVolume(0)
 basic.clearScreen()
 Menu = 6
-Brightness = 25
+Brightness = 5
 basic.forever(function () {
     if (Menu == 0) {
-        for (let index = 0; index < 8; index++) {
+        if (Score >= 50) {
+            for (let index = 0; index < 8; index++) {
+                music.play(music.tonePlayable(220, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
+                basic.pause(40)
+            }
+            music.play(music.tonePlayable(262, music.beat(BeatFraction.Half)), music.PlaybackMode.UntilDone)
+            basic.pause(50)
             music.play(music.tonePlayable(220, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
-            basic.pause(40)
+            basic.pause(50)
+            music.play(music.tonePlayable(294, music.beat(BeatFraction.Half)), music.PlaybackMode.UntilDone)
+            basic.pause(50)
+            music.play(music.tonePlayable(220, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
+            basic.pause(50)
+            music.play(music.tonePlayable(262, music.beat(BeatFraction.Half)), music.PlaybackMode.UntilDone)
+            basic.pause(50)
+        } else {
+            for (let index = 0; index < 8; index++) {
+                music.play(music.tonePlayable(220, music.beat(BeatFraction.Eighth)), music.PlaybackMode.UntilDone)
+                basic.pause(40)
+            }
+            music.play(music.tonePlayable(262, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
+            basic.pause(50)
+            music.play(music.tonePlayable(220, music.beat(BeatFraction.Eighth)), music.PlaybackMode.UntilDone)
+            basic.pause(50)
+            music.play(music.tonePlayable(294, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
+            basic.pause(50)
+            music.play(music.tonePlayable(220, music.beat(BeatFraction.Eighth)), music.PlaybackMode.UntilDone)
+            basic.pause(50)
+            music.play(music.tonePlayable(262, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
+            basic.pause(50)
         }
-        music.play(music.tonePlayable(262, music.beat(BeatFraction.Half)), music.PlaybackMode.UntilDone)
-        basic.pause(50)
-        music.play(music.tonePlayable(220, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
-        basic.pause(50)
-        music.play(music.tonePlayable(294, music.beat(BeatFraction.Half)), music.PlaybackMode.UntilDone)
-        basic.pause(50)
-        music.play(music.tonePlayable(220, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
-        basic.pause(50)
-        music.play(music.tonePlayable(262, music.beat(BeatFraction.Half)), music.PlaybackMode.UntilDone)
-        basic.pause(50)
     } else {
     	
     }
@@ -158,10 +175,8 @@ basic.forever(function () {
             . # . # .
             `)
         basic.pause(1000)
-        basic.showString(" ")
-        basic.clearScreen()
     } else if (Menu == 2) {
-        basic.showString("A+B")
+        basic.showString(" A+B")
         basic.clearScreen()
     } else if (Menu == 3) {
         basic.clearScreen()
@@ -217,22 +232,43 @@ basic.forever(function () {
         Menu = 2
     } else if (Menu == 0) {
         basic.clearScreen()
-        if (Player_X == Car_X && Player_Y == Car_Y) {
-            Menu = 1
-        } else {
-            led.plot(Player_X, Player_Y)
-            if (Car_Y != 4) {
-                led.plot(Car_X, Car_Y)
-                basic.pause(175)
-                led.unplot(Car_X, Car_Y)
-                Car_Y += 1
+        if (Score >= 50) {
+            if (Player_X == Car_X && Player_Y == Car_Y) {
+                Menu = 1
             } else {
-                led.plot(Car_X, Car_Y)
-                basic.pause(175)
-                led.unplot(Car_X, Car_Y)
-                Score += 1
-                Car_X = randint(0, 4)
-                Car_Y = 0
+                led.plot(Player_X, Player_Y)
+                if (Car_Y != 4) {
+                    led.plot(Car_X, Car_Y)
+                    basic.pause(150)
+                    led.unplot(Car_X, Car_Y)
+                    Car_Y += 1
+                } else {
+                    led.plot(Car_X, Car_Y)
+                    basic.pause(150)
+                    led.unplot(Car_X, Car_Y)
+                    Score += 1
+                    Car_X = randint(0, 4)
+                    Car_Y = 0
+                }
+            }
+        } else {
+            if (Player_X == Car_X && Player_Y == Car_Y) {
+                Menu = 1
+            } else {
+                led.plot(Player_X, Player_Y)
+                if (Car_Y != 4) {
+                    led.plot(Car_X, Car_Y)
+                    basic.pause(175)
+                    led.unplot(Car_X, Car_Y)
+                    Car_Y += 1
+                } else {
+                    led.plot(Car_X, Car_Y)
+                    basic.pause(175)
+                    led.unplot(Car_X, Car_Y)
+                    Score += 1
+                    Car_X = randint(0, 4)
+                    Car_Y = 0
+                }
             }
         }
     } else if (Menu == 4) {
