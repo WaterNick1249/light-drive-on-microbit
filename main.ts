@@ -9,12 +9,6 @@ input.onButtonPressed(Button.A, function () {
         music.play(music.tonePlayable(880, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
         music.play(music.tonePlayable(988, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
         Menu = 3
-    } else if (Menu == 6) {
-        if (Brightness >= 225) {
-        	
-        } else {
-            Brightness += 40
-        }
     } else {
         if (Player_X == Car_X && Player_Y == Car_Y) {
         	
@@ -48,12 +42,6 @@ input.onButtonPressed(Button.B, function () {
     } else if (Menu == 4) {
         basic.pause(100)
         Menu = 3
-    } else if (Menu == 6) {
-        if (Brightness <= 5) {
-        	
-        } else {
-            Brightness += -40
-        }
     } else {
         if (Player_X == Car_X && Player_Y == Car_Y) {
         	
@@ -67,17 +55,17 @@ input.onButtonPressed(Button.B, function () {
         }
     }
 })
+let Fade = 0
 let Score = 0
 let Car_Y = 0
 let Player_Y = 0
 let Car_X = 0
 let Player_X = 0
-let Brightness = 0
 let Menu = 0
+led.setBrightness(255)
 music.setVolume(0)
 basic.clearScreen()
-Menu = 6
-Brightness = 5
+Menu = 4
 basic.forever(function () {
     if (Menu == 0) {
         if (Score >= 50) {
@@ -124,6 +112,8 @@ basic.forever(function () {
     // 
     // Menu 3 = Intro
     if (Menu == 1) {
+        Fade = 255
+        led.setBrightness(Fade)
         basic.showLeds(`
             . . . . .
             . . . . .
@@ -145,13 +135,19 @@ basic.forever(function () {
             . # # # .
             # . # . #
             `)
-        basic.pause(1000)
+        for (let index = 0; index < 6; index++) {
+            led.setBrightness(Fade)
+            Fade += -50
+            basic.pause(100)
+        }
         basic.clearScreen()
         basic.pause(1000)
-        basic.showString("GAMEOVER")
+        Fade = Fade
+        led.setBrightness(255)
+        basic.pause(100)
         basic.showString("SCORE:")
         basic.showNumber(Score)
-        basic.pause(1000)
+        basic.pause(1500)
         Menu = 2
         basic.showLeds(`
             . . . . .
@@ -175,18 +171,37 @@ basic.forever(function () {
             . # . # .
             `)
         basic.pause(1000)
+        Fade = 255
+        led.setBrightness(Fade)
+        for (let index = 0; index < 6; index++) {
+            led.setBrightness(Fade)
+            Fade += -50
+            basic.pause(100)
+        }
+        basic.clearScreen()
+        basic.pause(500)
     } else if (Menu == 2) {
-        basic.showString(" A+B")
-        basic.clearScreen()
-    } else if (Menu == 3) {
-        basic.clearScreen()
+        Fade = 255
+        led.setBrightness(Fade)
         basic.showLeds(`
-            . . . . .
-            . . # . .
+            . # . . .
+            . # # . .
             . # # # .
-            . . # . .
-            . . . . .
+            . # # . .
+            . # . . .
             `)
+    } else if (Menu == 3) {
+        Fade = 255
+        led.setBrightness(Fade)
+        for (let index = 0; index < 6; index++) {
+            led.setBrightness(Fade)
+            Fade += -50
+            basic.pause(100)
+        }
+        basic.clearScreen()
+        basic.pause(1000)
+        Fade = 0
+        led.setBrightness(Fade)
         basic.showLeds(`
             . # # # .
             # . . . #
@@ -194,18 +209,49 @@ basic.forever(function () {
             # . . . #
             . # # # .
             `)
+        basic.pause(100)
+        for (let index = 0; index < 6; index++) {
+            led.setBrightness(Fade)
+            Fade += 50
+            basic.pause(100)
+        }
         music.play(music.tonePlayable(587, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
         music.play(music.tonePlayable(784, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
         music.play(music.tonePlayable(880, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
         music.play(music.tonePlayable(988, music.beat(BeatFraction.Quarter)), music.PlaybackMode.UntilDone)
         basic.pause(1000)
+        for (let index = 0; index < 6; index++) {
+            led.setBrightness(Fade)
+            Fade += -50
+            basic.pause(100)
+        }
+        basic.clearScreen()
+        basic.pause(1000)
+        Fade = 0
+        led.setBrightness(Fade)
         basic.showLeds(`
+            . # . # .
+            # . # . #
             . . . . .
-            . . # . .
-            . # # # .
-            . . # . .
-            . . . . .
+            . # . # .
+            # . # . #
             `)
+        basic.pause(100)
+        for (let index = 0; index < 6; index++) {
+            led.setBrightness(Fade)
+            Fade += 50
+            basic.pause(100)
+        }
+        basic.pause(1000)
+        for (let index = 0; index < 6; index++) {
+            led.setBrightness(Fade)
+            Fade += -50
+            basic.pause(100)
+        }
+        basic.clearScreen()
+        basic.pause(1000)
+        Fade = 255
+        led.setBrightness(Fade)
         basic.showLeds(`
             . . . . .
             . . . . .
@@ -228,7 +274,15 @@ basic.forever(function () {
             . # . # .
             `)
         basic.pause(1000)
-        basic.showString(" LIGHTDRIVE")
+        Fade = 255
+        led.setBrightness(Fade)
+        for (let index = 0; index < 6; index++) {
+            led.setBrightness(Fade)
+            Fade += -50
+            basic.pause(100)
+        }
+        basic.clearScreen()
+        basic.pause(500)
         Menu = 2
     } else if (Menu == 0) {
         basic.clearScreen()
@@ -239,12 +293,12 @@ basic.forever(function () {
                 led.plot(Player_X, Player_Y)
                 if (Car_Y != 4) {
                     led.plot(Car_X, Car_Y)
-                    basic.pause(150)
+                    basic.pause(145)
                     led.unplot(Car_X, Car_Y)
                     Car_Y += 1
                 } else {
                     led.plot(Car_X, Car_Y)
-                    basic.pause(150)
+                    basic.pause(145)
                     led.unplot(Car_X, Car_Y)
                     Score += 1
                     Car_X = randint(0, 4)
@@ -272,8 +326,6 @@ basic.forever(function () {
             }
         }
     } else if (Menu == 4) {
-        basic.showString("A")
-        basic.pause(250)
         basic.showLeds(`
             . . # . .
             # # # . #
@@ -281,17 +333,6 @@ basic.forever(function () {
             # # # . #
             . . # . .
             `)
-        basic.pause(600)
-        basic.showString("B")
-        basic.pause(250)
-        basic.showLeds(`
-            # . # . .
-            # # # . .
-            # # # . .
-            # # # # .
-            . . # . #
-            `)
-        basic.pause(600)
     } else if (Menu == 5) {
         basic.showLeds(`
             . # # # .
@@ -322,15 +363,6 @@ basic.forever(function () {
         Player_X = 2
         Player_Y = 3
         Menu = 0
-    } else if (Menu == 6) {
-        led.setBrightness(Brightness)
-        basic.showLeds(`
-            # # # # #
-            # # # # #
-            # # # # #
-            # # # # #
-            # # # # #
-            `)
     } else {
         music.play(music.tonePlayable(988, music.beat(BeatFraction.Whole)), music.PlaybackMode.UntilDone)
         basic.showString("ERROR")
